@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: T_DIM_DATES
+    description: >
+      Dimension model for GO Sales dates with various date attributes
+      including year, month, day, week, and weekend/weekday flags.
+    config:
+      materialized: table
+      schema: DET
+      tags:
+        - GO_SALES_DET  
+    columns:
+      - name: DATE_KEY
+        description: Primary key for the date dimension.
+      - name: FULL_DATE
+        description: Full calendar date.
+      - name: YEAR
+        description: Year of the date.
+      - name: MONTH
+        description: Month number (1–12).
+      - name: DAY
+        description: Day of the month.
+      - name: WEEK_OF_YEAR
+        description: Week number of the year.
+      - name: WEEKDAY_NUMBER
+        description: Day of the week (1=Sunday, 7=Saturday).
+      - name: DAY_OF_YEAR
+        description: Day number in the year (1–366).
+      - name: MONTH_LABEL
+        description: Year and month label in the format YYYY-MM.
+      - name: WEEK_LABEL
+        description: Year and ISO week label in the format YYYY-MM.
+      - name: QUARTER_LABEL
+        description: Year and quarter label in the format YYYY-Q#.
+      - name: IS_WEEKEND
+        description: True if the date falls on a weekend (Saturday or Sunday).
+      - name: IS_WEEKDAY
+        description: True if the date falls on a weekday (Monday to Friday).

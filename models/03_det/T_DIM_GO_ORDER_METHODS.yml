@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: T_DIM_GO_ORDER_METHODS
+    description: "SCD1 dimension model for GO Sales order methods with surrogate key and audit columns"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      schema: DET
+      tags:
+        - GO_SALES_DET
+      unique_key: ORDER_METHOD_CODE
+
+
+    columns:
+      - name: DIM_ORDER_METHOD_SK
+        description: "Surrogate key for the order method record"
+        tests:
+          - not_null
+          - unique
+          
+      - name: ORDER_METHOD_CODE
+        description: "Business key representing the order method"
+        tests:
+          - not_null
+          - unique
+
+      - name: ORDER_METHOD_TYPE
+        description: "Description of the order method type (e.g., Web, Phone, Fax)"
+
+      - name: CREATE_TS
+        description: "Timestamp when the record was first created"
+
+      - name: UPDATE_TS
+        description: "Timestamp when the record was last updated"

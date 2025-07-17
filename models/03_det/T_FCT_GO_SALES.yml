@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: T_FCT_GO_SALES
+    description: >
+      Detail-level integrated sales fact table built incrementally from staging. Includes surrogate key, audit columns, and tracks order and price details by retailer/product/method/date.
+
+    config:
+      materialized: incremental
+      schema: det     
+      tags:
+        - GO_SALES_DET
+      unique_key: FCT_SALES_SK
+
+    columns:
+      - name: FCT_SALES_SK
+        description: Numeric surrogate key generated via sequence.
+        tests:
+          - not_null
+          - unique
+
+      - name: RETAILER_CODE
+        description: Retailer identifier from sales data.
+        tests:
+          - not_null
+
+      - name: PRODUCT_NUMBER
+        description: Product SKU identifier.
+        tests:
+          - not_null
+
+      - name: ORDER_METHOD_CODE
+        description: Code representing the ordering channel (e.g., online, store).
+        tests:
+          - not_null
+
+      - name: TRANSACTION_DATE
+        description: Date of the sales transaction.
+        tests:
+          - not_null
+
+      - name: QUANTITY
+        description: Number of units sold.
+
+      - name: UNIT_PRICE
+        description: Regular price per unit.
+
+      - name: UNIT_SALE_PRICE
+        description: Final sale price per unit.
+
+      - name: CREATE_TS
+        description: Timestamp when the record was first loaded into the detail layer.
+
+      - name: UPDATE_TS
+        description: Timestamp when the record was last updated.

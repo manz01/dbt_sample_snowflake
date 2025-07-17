@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: T_DIM_GO_RETAILERS
+    description: "SCD2 dimension model for GO Sales retailers"
+    config:
+      materialized: incremental
+      incremental_strategy: merge         
+      schema: DET
+      tags:
+        - GO_SALES_DET
+
+    columns:
+      - name: DIM_RETAILER_SK
+        description: "Surrogate key for each SCD2 version of the retailer record"
+        tests:
+          - not_null
+          - unique
+          
+      - name: RETAILER_CODE
+        description: "Natural key representing the retailer"
+        tests:
+          - not_null
+
+      - name: RETAILER_NAME
+        description: "Name of the retailer"
+
+      - name: RETAILER_TYPE
+        description: "Retailer type/category"
+
+      - name: COUNTRY
+        description: "Country where the retailer operates"
+
+      - name: SCD2_HASH
+        description: "MD5 hash of tracked columns used for change detection"
+
+      - name: START_TS
+        description: "Timestamp when the record became effective"
+
+      - name: END_TS
+        description: "Timestamp when the record became outdated (or high_date if current)"
