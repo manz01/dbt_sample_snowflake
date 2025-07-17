@@ -1,0 +1,15 @@
+dbt_core_sample_snowflake:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: hlutnos-ge96755
+      user: manz442
+      role: GOS_RL
+      #authenticator: externalbrowser
+      private_key_path: /home/u0001/gosales-snowflake-terraform/private_key.pem
+      database: GOS01
+      warehouse: GOS_WH
+      schema: raw
+      threads: 1
+      client_session_keep_alive: false
