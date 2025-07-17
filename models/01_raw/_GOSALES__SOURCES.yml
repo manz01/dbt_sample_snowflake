@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: gosales_raw
+    database: GOS01
+    schema: RAW
+    tables:
+      - name: T_RAW_GO_DAILY_SALES
+        description: "Raw daily sales transactions from GO Sales dataset"
+      - name: T_RAW_GO_PRODUCTS
+        description: "Raw product details from GO Sales dataset"
+      - name: T_RAW_GO_RETAILERS
+        description: "Raw retailer details from GO Sales dataset"
+      - name: T_RAW_GO_METHODS
+        description: "Raw order methods (channels) from GO Sales dataset"
+      - name: T_RAW_GO_1K 
+        description: "Raw GO Sales data (Retailer-Product daily sales subset)"
