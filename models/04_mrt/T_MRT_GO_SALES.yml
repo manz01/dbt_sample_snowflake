@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: T_MRT_GO_SALES
+    description: >
+      Flattened mart table joining fct_go_sales with active (current) dimension
+      records from product, retailer, and order method dimensions.
+    config:
+      materialized: table
+      schema: MRT 
+      tags:
+        - GO_SALES_MRT
+      
+    columns:
+      - name: FCT_SALES_SK
+        description: "Surrogate key for the sales fact record"
+        tests:
+          - not_null
+          - unique
+
+      - name: TRANSACTION_DATE
+        description: "Date when the transaction occurred"
+        tests:
+          - not_null
+
+      - name: QUANTITY
+        description: "Number of units sold"
+
+      - name: UNIT_PRICE
+        description: "Price per unit sold"
+
+      - name: TOTAL_AMOUNT
+        description: "Calculated total (quantity * unit_price)"
+
+      - name: ORDER_METHOD_CODE
+        description: "Natural key for order method"
+
+      - name: ORDER_METHOD_TYPE
+        description: "Descriptive type of order method (e.g., Web, Direct)"
+
+      - name: PRODUCT_NUMBER
+        description: "Unique identifier for product"
+
+      - name: PRODUCT_DESCRIPTION
+        description: "Product description"
+
+      - name: PRODUCT_LINE
+        description: "Category or grouping of product"
+
+      - name: PRODUCT_TYPE
+        description: "Product classification"
+
+      - name: PRODUCT_BRAND
+        description: "Brand under which the product is sold"
+
+      - name: RETAILER_CODE
+        description: "Retailer's unique code"
+
+      - name: RETAILER_NAME
+        description: "Name of the retailer"
+
+      - name: RETAILER_COUNTRY
+        description: "Country where retailer operates"
+
+      - name: RETAILER_TYPE
+        description: "Type or classification of the retailer (e.g., Online, Physical)"
