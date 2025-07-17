@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: T_STG_GO_METHODS
+    config:
+      materialized: table  
+      schema: STG
+      tags: 
+        - GO_SALES_STG
+    columns:
+      - name: ORDER_METHOD_CODE
+        description: "Code representing the order method used"
+      - name: ORDER_METHOD_TYPE
+        description: "Order method type"
+
+

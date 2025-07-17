@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: T_STG_GO_PRODUCTS
+    config:
+      materialized: table  
+      schema: STG
+      tags: GO_SALES_STG
+    columns:
+      - name: PRODUCT_NUMBER
+        description: "Unique identifier for the product"
+      - name: PRODUCT_LINE
+        description: "Line to which the product belongs"
+      - name: PRODUCT_TYPE
+        description: "Type of the product"
+      - name: PRODUCT
+        description: "Name or description of the product"
+      - name: PRODUCT_BRAND
+        description: "Brand of the product"
+      - name: PRODUCT_COLOR
+        description: "Color of the product"
+      - name: UNIT_COST
+        description: "Cost per unit of the product"
+      - name: UNIT_PRICE
+        description: "Selling price per unit of the product"
+      - name: UNIT_SALE_PRICE         
+        description: "Sale price per unit of the product"

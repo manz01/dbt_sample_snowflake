@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: T_STG_GO_RETAILERS
+    description: "This model contains the details of retailers including their unique codes and names." 
+    config:
+      materialized: table  
+      schema: stg
+      tags: GO_SALES_STG
+    columns:  
+      - name: RETAILER_CODE
+        description: "Unique identifier for the retailer"
+      - name: RETAILER_NAME
+        description: "Name of the retailer"
+      - name: RETAILER_TYPE
+        description: "Type of the retailer (e.g., online, physical store)"
+      - name: COUNTRY
+        description: "Country where the retailer is located"
+
+
