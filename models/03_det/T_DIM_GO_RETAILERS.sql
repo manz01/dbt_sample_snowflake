@@ -17,7 +17,7 @@ Date        Programmer             Description
 2025-06-23  Manzar Ahmed           v0.03/SonarQube issues fixed:  
                                    Define a constant instead of duplicating this 
                                    literal 5 times (plsql:S1192)    
-2025-07-14	Manzar Ahmed		   v0.05/changed to snowflake endpoint                                                                     
+2025-07-14  Manzar Ahmed           v0.05/changed to snowflake endpoint                                                                     
 -------------------------------------------------------------------------------*/
 
 {{ config(

@@ -20,7 +20,7 @@ Date        Programmer             Description
                                    literal 5 times (plsql:S1192)    
 2025-07-07  Manzar Ahmed           v0.04/Added version number, current_version 
                                    and prior surrogate key to SCD2        
-2025-07-14	Manzar Ahmed		   v0.05/changed to snowflake endpoint                                                                                       
+2025-07-14  Manzar Ahmed           v0.05/changed to snowflake endpoint                                                                                       
 -------------------------------------------------------------------------------*/
 {{ config(
     materialized = 'incremental',

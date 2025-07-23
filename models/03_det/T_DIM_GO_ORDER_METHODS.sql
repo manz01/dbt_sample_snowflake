@@ -13,7 +13,7 @@ Program history:
 Date        Programmer             Description
 ----------  ---------------------  ---------------------------------------------
 2025-06-11  Manzar Ahmed           v0.01/Initial version
-2025-07-14	Manzar Ahmed		   v0.02/changed to snowflake endpoint
+2025-07-14  Manzar Ahmed           v0.02/changed to snowflake endpoint
 -------------------------------------------------------------------------------*/
 
 {{ config(
