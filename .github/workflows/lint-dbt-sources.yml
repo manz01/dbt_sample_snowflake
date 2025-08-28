@@ -1,0 +1,35 @@
+name: Lint dbt source files & names
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  push:
+    branches: [ main, master ]
+
+jobs:
+  lint-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt + adapter
+        run: |
+          pip install "dbt-core>=1.5,<2.0" "dbt-redshift>=1.5,<2.0"
+
+      - name: Build manifest
+        run: dbt parse --no-use-colors
+        env:
+          # DBT_PROFILES_DIR: .    # uncomment if needed
+          DBT_ENV: ci
+
+      - name: Validate source layout & naming
+        env:
+          SOURCES_DIR: models/00_sources
+          FILE_PREFIX: src_
+          SOURCE_PREFIX: src_
+        run: python .github/scripts/validate_sources_layout.py
