@@ -29,7 +29,6 @@ jobs:
 
       - name: Validate source layout & naming
         env:
-          SOURCES_DIR: models/00_sources
-          FILE_PREFIX: src_
-          SOURCE_PREFIX: src_
+          SOURCES_DIR: models/01_raw
+          FILE_PREFIX: SRC_
         run: python .github/scripts/validate_sources_layout.py
