@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: T_STG_GO_METHODS
+  - name: T_STG_GO_METHOD
     config:
       materialized: table  
       schema: STG
@@ -11,5 +11,4 @@ models:
         description: "Code representing the order method used"
       - name: ORDER_METHOD_TYPE
         description: "Order method type"
-
 

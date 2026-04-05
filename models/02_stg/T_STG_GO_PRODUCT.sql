@@ -1,10 +1,10 @@
-/*-------------------------------------------------------------------------------
-Program:        T_STG_GO_PRODUCTS.sql
+/*------------------------------------------------------------------------------
+Program:        T_STG_GO_PRODUCT.sql
 Project:        dbt-sample-go-sales-snowflake
 Description:    Staging model for GO Sales products
                 with raw data from source
 Input(s):       RAW.T_RAW_GO_PRODUCTS
-Output(s):      STG.T_STG_GO_PRODUCTS
+Output(s):      STG.T_STG_GO_PRODUCT
 Author:         Manzar Ahmed
 First Created:  Jun 2025
 --------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ Date        Programmer             Description
 ----------  ---------------------  ---------------------------------------------
 2025-06-11  Manzar Ahmed           v0.01/Initial version
 2025-07-11  Manzar Ahmed           v0.02/changed to snowflake endpoint
--------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------*/
 
 {{ config(
     materialized = 'table',

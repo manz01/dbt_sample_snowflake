@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: T_STG_GO_PRODUCTS
+  - name: T_STG_GO_PRODUCT
     config:
       materialized: table  
       schema: STG

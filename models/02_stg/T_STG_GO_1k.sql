@@ -1,4 +1,4 @@
-/*-------------------------------------------------------------------------------
+/*------------------------------------------------------------------------------
 Program:        T_STG_GO_1K.sql
 Project:        dbt-sample-go-sales-snowflake
 Description:    Staging model for GO Sales products transactions
@@ -14,7 +14,7 @@ Date        Programmer             Description
 ----------  ---------------------  ---------------------------------------------
 2025-06-11  Manzar Ahmed           v0.01/Initial version
 2025-07-11	Manzar Ahmed		   v0.02/changed to snowflake endpoint
--------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------*/
 {{ config(
     materialized = 'table',
     transient = true

@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: T_STG_GO_RETAILERS
+  - name: T_STG_GO_RETAILER
     description: "This model contains the details of retailers including their unique codes and names." 
     config:
       materialized: table  
@@ -15,5 +15,4 @@ models:
         description: "Type of the retailer (e.g., online, physical store)"
       - name: COUNTRY
         description: "Country where the retailer is located"
-
 
