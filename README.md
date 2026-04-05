@@ -70,9 +70,9 @@ The dbt-core project follows a **layered design architecture** that structures d
    - The detailed layer will build a star schema for the go sales data
 
 ```text
- +------------------+  +--------------+
- |T_DIM_ORDER_METHOD|  |T_DIM_PRODUCTS|
- +------------------+  +--------------+
+ +------------------------+  +------------------+
+ |T_DIM_GO_ORDER_METHOD   |  |T_DIM_GO_PRODUCT  |
+ +------------------------+  +------------------+
          \              /
           \            /
            +-----------+
@@ -80,9 +80,9 @@ The dbt-core project follows a **layered design architecture** that structures d
            +-----------+
            /          \
           /            \
-   +-----------+    +---------------+
-   |T_DIM_DATES|    |T_DIM_RETAILERS|
-   +-----------+    +---------------+
+   +-------------+    +-------------------+
+   |T_DIM_DATE   |    |T_DIM_GO_RETAILER  |
+   +-------------+    +-------------------+
 ```
 4. **Mart Layer (`MRT`)**  
 The mart layer builds business-ready, denormalised tables designed for reporting, dashboarding, and analytical consumption.
@@ -266,7 +266,7 @@ Example output:
 
 ### Step 6: Load Raw Tables via dbt
 
-The following dbt operations run macros that create and load Snowflake tables from the corresponding S3 files:
+The following dbt operations wrap Snowflake COPY jobs that hydrate the RAW layer from S3:
 
 ```sh
 dbt run-operation load_raw_go_1k
@@ -276,28 +276,19 @@ dbt run-operation load_raw_go_retailers
 dbt run-operation load_raw_go_daily_sales
 ```
 
-The below macro load_csv_to_snowflake.sql handles the loading, example shown for raw_go_products123:
+Each command maps to a macro defined in `macros/load_csv_to_snowflake.sql`. The helper macro `load_csv_to_snowflake_and_create_table` creates (or replaces) the RAW table and issues the `COPY INTO` from the external stage. The table below summarises what is loaded:
+
+| Command | RAW table created | S3 object consumed |
+| --- | --- | --- |
+| `dbt run-operation load_raw_go_1k` | `T_RAW_GO_1K` | `go_1k.csv` |
+| `dbt run-operation load_raw_go_methods` | `T_RAW_GO_METHODS` | `go_methods.csv` |
+| `dbt run-operation load_raw_go_products` | `T_RAW_GO_PRODUCTS` | `go_products.csv` |
+| `dbt run-operation load_raw_go_retailers` | `T_RAW_GO_RETAILERS` | `go_retailers.csv` |
+| `dbt run-operation load_raw_go_daily_sales` | `T_RAW_GO_DAILY_SALES` | `go_daily_sales.csv` |
+
+Excerpt from `macros/load_csv_to_snowflake.sql`:
 
 ```sql
-{% macro load_csv_to_snowflake_and_create_table(table_name, file_name, columns, stage) %}
-    {% set full_table = target.database ~ '.' ~ target.schema ~ '.' ~ table_name %}
-
-    {% do run_query("CREATE OR REPLACE TABLE " ~ full_table ~ " (" ~ columns ~ ");") %}
-
-    {% do run_query("COPY INTO " ~ full_table ~ "
-        FROM @" ~ stage ~ "/" ~ file_name ~ "
-        FILE_FORMAT = (
-            TYPE = 'CSV',
-            FIELD_OPTIONALLY_ENCLOSED_BY = '\"',
-            SKIP_HEADER = 1,
-            DATE_FORMAT = 'DD/MM/YYYY',
-            ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE
-        )
-        ON_ERROR = 'CONTINUE';") %}
-
-    {{ return("Table created and loaded: " ~ full_table) }}
-{% endmacro %}
-
 {% macro load_raw_go_products() %}
     {% set table_name = "T_RAW_GO_PRODUCTS" %}
     {% set file_name = "go_products.csv" %}
@@ -317,7 +308,7 @@ The below macro load_csv_to_snowflake.sql handles the loading, example shown for
 {% endmacro %}
 ```
 
-The code that runs for the above products data is shown below:
+The shared macro performs the DDL + COPY steps so all five loads remain consistent.
 
 ```sql
 CREATE OR REPLACE TABLE GOS01.RAW.T_RAW_GO_PRODUCTS (
@@ -387,7 +378,7 @@ Use tags to run models grouped by their logical layer:
 
 #### 4.2.1. Raw Models <a id="421"></a>
 
-Load the source data from S3 bucket using dbt run-operation that invokes the dbt macro:
+Load the source data from S3 using the run-operations that wrap the macros in `macros/load_csv_to_snowflake.sql`:
 
 ```sh
 dbt run-operation load_raw_go_1k
@@ -396,6 +387,8 @@ dbt run-operation load_raw_go_products
 dbt run-operation load_raw_go_retailers
 dbt run-operation load_raw_go_daily_sales
 ```
+
+Each command creates/replaces the corresponding `T_RAW_GO_*` table and issues a `COPY INTO` from `GOS01.RAW.GO_SALES_STAGE`. See Step&nbsp;6 for the full mapping of CSV files to commands.
 
 #### 4.2.2. Staging Models <a id="442"></a>
 

@@ -1,0 +1,8 @@
+
+target/*
+dbt_packages/*
+logs/*
+dbt_internal_packages/*
+ddl/*
+shared_utils/__pycache__/*
+shared_utils/*
