@@ -5,7 +5,7 @@ Description:    Mart sales model combining fact and dimension tables
 Input(s):       DET.T_FCT_GO_SALES
                 DET.T_DIM_GO_ORDER_METHOD
                 DET.T_DIM_GO_PRODUCT
-                DET.T_DIM_RETAILER
+                DET.T_DIM_GO_RETAILER
 Output(s):      MRT.T_MRT_GO_SALES
 Author:         Manzar Ahmed
 First Created:  Jun 2025
@@ -25,18 +25,18 @@ with fact as (
 
 order_methods as (
     select *
-    from {{ ref('T_DIM_GO_ORDER_METHODS') }}
+    from {{ ref('T_DIM_GO_ORDER_METHOD') }}
 ),
 
 products as (
     select *
-    from {{ ref('T_DIM_GO_PRODUCTS') }}
+    from {{ ref('T_DIM_GO_PRODUCT') }}
     where CURRENT_VERSION = true
 ),
 
 retailers as (
     select *
-    from {{ ref('T_DIM_GO_RETAILERS') }}
+    from {{ ref('T_DIM_GO_RETAILER') }}
     where CURRENT_VERSION = true
 )
 
