@@ -1,9 +1,9 @@
 /*------------------------------------------------------------------------------
-Program:        T_DIM_GO_RETAILERS
+Program:        T_DIM_GO_RETAILER
 Project:        dbt-sample-go-sales-snowflake
 Description:    SCD2 dimension model for GO Sales retailers
-Input(s):       STG.T_STG_GO_RETAILERS
-Output(s):      DET.T_DIM_GO_RETAILERS
+Input(s):       STG.T_STG_GO_RETAILER
+Output(s):      DET.T_DIM_GO_RETAILER
 Author:         Manzar Ahmed
 First Created:  Jun 2025
 --------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ with current_data as (
 			coalesce(COUNTRY, '')
 			) as SCD2_HASH
 			
-    from {{ ref('T_STG_GO_RETAILERS') }}
+    from {{ ref('T_STG_GO_RETAILER') }}
 	
 )
 

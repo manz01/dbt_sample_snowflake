@@ -1,10 +1,10 @@
 /*------------------------------------------------------------------------------
-Program:        T_DIM_GO_ORDER_METHODS.sql
+Program:        T_DIM_GO_ORDER_METHOD.sql
 Project:        dbt-sample-go-sales-snowflake
 Description:    SCD1 dimension model for GO Sales order methods with surrogate
                 key and audit columns
-Input(s):       STG.T_STG_GO_METHODS
-Output(s):      DET.T_DIM_GO_ORDER_METHODS
+Input(s):       STG.T_STG_GO_METHOD
+Output(s):      DET.T_DIM_GO_ORDER_METHOD
 Author:         Manzar Ahmed
 First Created:  Jun 2025
 --------------------------------------------------------------------------------
@@ -16,19 +16,11 @@ Date        Programmer             Description
 2025-07-14  Manzar Ahmed           v0.02/changed to snowflake endpoint
 -------------------------------------------------------------------------------*/
 
-{{ config(
-    materialized = 'incremental',
-    schema = 'DET',
-    unique_key = 'DIM_ORDER_METHOD_SK',
-    incremental_strategy = 'merge',
-    pre_hook = ["create sequence if not exists DET.SEQ_DIM_ORDER_METHOD_SK start = 1 increment = 1"]
-) }}
-
 with source_data as (
     select
         ORDER_METHOD_CODE,
         ORDER_METHOD_TYPE
-    from {{ ref('T_STG_GO_METHODS') }}
+    from {{ ref('T_STG_GO_METHOD') }}
     order by ORDER_METHOD_CODE
 )
 

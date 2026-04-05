@@ -1,12 +1,14 @@
 version: 2
 
 models:
-  - name: T_DIM_GO_ORDER_METHODS
+  - name: T_DIM_GO_ORDER_METHOD
     description: "SCD1 dimension model for GO Sales order methods with surrogate key and audit columns"
     config:
       materialized: incremental
       incremental_strategy: merge
       schema: DET
+      pre_hook: |
+        create sequence if not exists DET.SEQ_DIM_ORDER_METHOD_SK start = 1 increment = 1;
       tags:
         - GO_SALES_DET
       unique_key: ORDER_METHOD_CODE

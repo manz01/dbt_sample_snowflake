@@ -3,9 +3,9 @@ Program:        T_FCT_GO_SALES
 Project:        dbt-sample-go-sales-snowflake
 Description:    Fact table for GO Sales with surrogate keys from dimensions
 Input(s):       STG.T_STG_GO_DAILY_SALES
-                DET.T_DIM_GO_ORDER_METHODS
-				DET.T_DIM_GO_PRODUCTS
-				STG.T_DIM_GO_RETAILERS
+                DET.T_DIM_GO_ORDER_METHOD
+				DET.T_DIM_GO_PRODUCT
+				DET.T_DIM_GO_RETAILER
 Output(s):      FCT.T_FCT_GO_SALES
 Author:         Manzar Ahmed
 First Created:  Jun 2025
@@ -60,13 +60,13 @@ joined as (
         current_timestamp as CREATE_TS,
         current_timestamp as UPDATE_TS
     from base as b
-        left join {{ ref('T_DIM_GO_RETAILERS') }} as r
+        left join {{ ref('T_DIM_GO_RETAILER') }} as r
             on b.RETAILER_CODE = r.RETAILER_CODE
             and r.CURRENT_VERSION = true
-        left join {{ ref('T_DIM_GO_PRODUCTS') }} as p
+        left join {{ ref('T_DIM_GO_PRODUCT') }} as p
             on b.PRODUCT_NUMBER = p.PRODUCT_NUMBER
             and p.CURRENT_VERSION = true
-        left join {{ ref('T_DIM_GO_ORDER_METHODS') }} as m
+        left join {{ ref('T_DIM_GO_ORDER_METHOD') }} as m
             on b.ORDER_METHOD_CODE = m.ORDER_METHOD_CODE
 )
 

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: T_DIM_GO_PRODUCTS
+  - name: T_DIM_GO_PRODUCT
     description: "SCD2 dimension model for GO Sales products with surrogate key and change hash"
     config:
       materialized: incremental

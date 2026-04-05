@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: T_DIM_DATES
+  - name: T_DIM_DATE
     description: >
       Dimension model for GO Sales dates with various date attributes
       including year, month, day, week, and weekend/weekday flags.

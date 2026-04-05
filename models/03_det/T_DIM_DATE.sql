@@ -1,10 +1,10 @@
 /*------------------------------------------------------------------------------
-Program:        T_DIM_DATES.sql
+Program:        T_DIM_DATE.sql
 Project:        dbt-sample-go-sales-snowflake
 Description:    Dimension model for GO Sales dates with various date attributes
                  including year, month, day, week, and weekend/weekday flags
 Input(s):       date_span
-Output(s):      DET.T_DIM_DATES
+Output(s):      DET.T_DIM_DATE
 Author:         Manzar Ahmed
 First Created:  Jul 2025
 --------------------------------------------------------------------------------

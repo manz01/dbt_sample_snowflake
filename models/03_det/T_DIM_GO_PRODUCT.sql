@@ -1,10 +1,10 @@
 /*------------------------------------------------------------------------------
-Program:        T_DIM_GO_PRODUCTS.sql
+Program:        T_DIM_GO_PRODUCT.sql
 Project:        dbt-sample-go-sales-snowflake
 Description:    SCD2 dimension model for GO Sales products with surrogate key 
                 and change hash
-Input(s):       STG.T_STG_GO_PRODUCTS
-Output(s):      DET.T_DIM_GO_PRODUCTS
+Input(s):       STG.T_STG_GO_PRODUCT
+Output(s):      DET.T_DIM_GO_PRODUCT
 Author:         Manzar Ahmed
 First Created:  Jun 2025
 --------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ with current_data as (
 			coalesce(cast(UNIT_COST as varchar), '') || '|' ||
 			coalesce(cast(UNIT_PRICE as varchar), '')
 		) as SCD2_HASH
-    from {{ ref('T_STG_GO_PRODUCTS') }}
+    from {{ ref('T_STG_GO_PRODUCT') }}
 )
 
 {% if is_incremental() %},
